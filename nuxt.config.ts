@@ -1,21 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 	compatibilityDate: '2025-07-15',
-	modules: ['@nuxt/fonts', '@nuxtjs/i18n', '@nuxt/eslint'],
+	modules: ['@nuxtjs/i18n', '@nuxt/eslint'],
 	typescript: {
 		typeCheck: true
 	},
 	eslint: {
 		config: {
 			standalone: false
-		}
-	},
-	app: {
-		head: {
-			script: [
-				{ tagPosition: 'bodyClose', src: '/js/index.js' }
-			],
-			link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
 		}
 	},
 	i18n: {
@@ -45,6 +37,7 @@ export default defineNuxtConfig({
 			aes_key: '',
 			hmac_key: '',
 			domain: '',
+			internal_url: '',
 			app_id: ''
 		},
 		grpc: {

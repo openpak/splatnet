@@ -1,42 +1,43 @@
-# Splatoon Website
+# OpenPak SplatNet
 
-This is a replacement service for SplatNet, the Splatoon 1 service for showing stage rotations, active matches, and profile states from matches.
+OpenPak's replacement for SplatNet, the Splatoon 1 companion service for the Wii U.
 
-## Setup
+| | |
+| --- | --- |
+| Network | Wii U |
+| Role | Web site: stage rotations, active matches, player tags |
+| Depends on | [`nn-boss`](https://github.com/openpak/nn-boss), [`nn-account`](https://github.com/openpak/nn-account), [`nn-friends`](https://github.com/openpak/nn-friends), the Splatoon title database ([`nex`](https://github.com/openpak/nex)), MongoDB |
+| Image | `ghcr.io/openpak/splatnet` |
+| Public host | `splatnet.openpak.org` |
+| Based on | [Pretendo `Splatoon-Website`](https://github.com/PretendoNetwork/Splatoon-Website) (AGPL-3.0) |
+| Licence | AGPL-3.0-only |
 
-Create a .env with the following values:
+## What it shows
 
-| Key                                      | Description                                                                                |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------ |
-| PN_SPLATOON_WEBSITE_BOSS_AES_KEY         | BOSS AES key, decoded not hex                                                              |
-| PN_SPLATOON_WEBSITE_BOSS_HMAC_KEY        | BOSS HMAC key, decoded not hex                                                             |
-| PN_SPLATOON_WEBSITE_BOSS_DOMAIN          | Domain where the BOSS server exists. E.g., `https://npts.app.pretendo.cc`                  |
-| PN_SPLATOON_WEBSITE_BOSS_APP_ID          | BOSS App ID. Should be `rjVlM7hUXPxmYQJh` for Splatoon                                     |
-| PN_SPLATOON_WEBSITE_MAX_RESPONSE         | Number of hours of to show stages for                                                      |
-| PN_SPLATOON_WEBSITE_FILE_CACHE_DIR       | Directory where cached VSSetting files are stored.                                         |
-| PN_SPLATOON_WEBSITE_POSTGRES_URI         | Splatoon postgres uri e.g., `postgres://user:password@host:post/database?sslmode=disabled` |
-| PN_SPLATOON_WEBSITE_GRPC_ACCOUNT_API_KEY | API Key to connect to the account grpc server                                              |
-| PN_SPLATOON_WEBSITE_GRPC_ACCOUNT_PORT    | Port to connect to the account grpc server                                                 |
-| PN_SPLATOON_WEBSITE_GRPC_ACCOUNT_HOST    | Host to connect to the account grpc server                                                 |
-| PN_SPLATOON_WEBSITE_MONGO_URI            | MongoDB URI for storage of user data                                                       |
-| PN_SPLATOON_WEBSITE_LOGIN_DOMAIN         | Website for logging in (e.g., https://pretendo.network)                                    |
-| PN_SPLATOON_WEBSITE_HOSTNAME             | Domain website is hosted on to redirect back to (e.g., https://splatoon.pretendo.network)  |
+| Page | Source |
+| --- | --- |
+| Regular and Ranked Battle stages | `VSSetting.byaml` from BOSS (task `schdat2`, app `rjVlM7hUXPxmYQJh`), decrypted with the BOSS keys and cached for an hour |
+| Gatherings | Open sessions in the Splatoon title database (`matchmaking` schema), player names from the account server |
+| Friends and tag themes | Needs a signed-in player; see [Notes](docs/notes.md) |
 
-## Running locally for development
+## Run
 
-### Prerequisites:
+```sh
+cp example.env .env   # fill it in first
+npm ci
+npm run build
+npm start
+```
 
-- Clone the repository
-- Have NodeJS 20 or higher installed
+Settings are in [`example.env`](example.env). The container listens on 8080.
 
-### Steps
+## Docs
 
-1. Enter the above configs into the `.env` file
-2. Run the following commands:
+- [Deploy](docs/deploy.md)
+- [Notes](docs/notes.md)
+- [Upstream README](docs/upstream.md)
+- [Docs index](docs/README.md)
 
-	```
-	npm i
-	npm run dev
-	```
+## Licence
 
-3. That's it!
+AGPL-3.0-only. See [LICENSE](LICENSE).

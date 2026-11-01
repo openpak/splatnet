@@ -35,8 +35,11 @@ RUN npm run prepare && npm run build
 FROM base AS final
 ARG app_dir
 
+RUN mkdir -p /home/node/cache && chown node:node /home/node/cache
+
 USER node
 ENV NODE_ENV=production
+ENV PN_SPLATOON_WEBSITE_FILE_CACHE_DIR=/home/node/cache
 ENV NITRO_HOST=0.0.0.0
 ENV NITRO_PORT=8080
 EXPOSE 8080

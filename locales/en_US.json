@@ -1,6 +1,6 @@
 {
 	"meta": {
-		"title": "Splatoon Website",
+		"title": "OpenPak SplatNet",
 		"description": ""
 	},
 	"titles": {
@@ -26,7 +26,8 @@
 		"13": "Ancho-V Games",
 		"14": "Piranha Pit",
 		"15": "Mahi-Mahi Resort",
-		"None": "No Stages"
+		"None": "No Stages",
+		"none": "No Stages"
 	},
 	"modes": {
 		"cPnt": "Turf War",
@@ -459,5 +460,42 @@
 		"108": "Bomb Sniffer",
 		"109": "Ink Resistance Up",
 		"110": "Stealth Jump"
+	},
+	"nav": {
+		"skip": "Skip to content",
+		"main": "Main",
+		"home": "Home",
+		"titles": "Titles",
+		"features": "Features",
+		"downloads": "Downloads",
+		"status": "Status",
+		"help": "Help",
+		"getstarted": "Get started",
+		"register": "Create account"
+	},
+	"footer": {
+		"note": "OpenPak is an independent community network. Not affiliated with any console vendor.",
+		"network": "Network",
+		"project": "Project",
+		"source": "Source code",
+		"feed": {
+			"news": "News feed"
+		},
+		"press": "Press kit",
+		"legal": "Legal",
+		"terms": "Terms of use",
+		"privacy": "Privacy policy",
+		"nintendo": "Splatoon is a trademark of Nintendo; stage art belongs to its owners."
+	},
+	"page": {
+		"lede": "Stage rotations, open gatherings and who is playing, for Splatoon on the OpenPak Wii U network.",
+		"now": "Now",
+		"next": "Next",
+		"until": "until",
+		"open_slots": "open",
+		"players": "players",
+		"stages_none": "No rotation is published right now.",
+		"stages_hint": "The schedule comes from the network's BOSS server and shows up here once it is published.",
+		"signin_note": "Friend lists and tag themes need a signed-in player and are not available yet."
 	}
 }

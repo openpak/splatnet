@@ -22,29 +22,38 @@ const gRPCApiClient = createClient(APIDefinition, gRPCApiChannel);
 const gRPCFriendsChannel = createChannel(`${host_friends}:${port_friends}`);
 const gRPCFriendsClient = createClient(FriendsServiceDefinition, gRPCFriendsChannel);
 
+// OpenPak's account server (nn-account) serves account.v2 GetUserData per pid and has no
+// GetPNIDs, so the batch lookup is done pid by pid. Unknown pids are left out of the result.
 export async function fetchPNIDs(pids: number[]): Promise<GetPNIDsResponse['userData']> {
-	try {
-		const result: GetPNIDsResponse = await gRPCAccountClient.getPNIDs({
-			pid: pids
-		}, {
-			metadata: Metadata({
-				'X-API-Key': api_key_account
-			})
-		});
-		return result.userData;
-	} catch (e) {
-		logger.error(e, 'Error fetching PNIDs');
-		throw new Error('Failed to fetch PNIDs');
-	}
+	const userData: GetPNIDsResponse['userData'] = {};
+	await Promise.all([...new Set(pids)].map(async (pid) => {
+		try {
+			userData[pid] = await gRPCAccountClient.getUserData({ pid }, {
+				metadata: Metadata({
+					'X-API-Key': api_key_account
+				})
+			});
+		} catch (e) {
+			logger.debug(e, 'Error fetching PNID');
+		}
+	}));
+	return userData;
 }
 
-export async function fetchPNID(token: string): Promise<GetUserDataResponse> {
-	return gRPCApiClient.getUserData({}, {
-		metadata: Metadata({
-			'X-API-Key': api_key_account,
-			'X-Token': token
-		})
-	});
+// Sign-in by access token needs the Pretendo `api` service, which OpenPak's account server does
+// not serve; without it nobody is signed in and the friends and profile views stay empty.
+export async function fetchPNID(token: string): Promise<GetUserDataResponse | null> {
+	try {
+		return await gRPCApiClient.getUserData({}, {
+			metadata: Metadata({
+				'X-API-Key': api_key_account,
+				'X-Token': token
+			})
+		});
+	} catch (e) {
+		logger.debug(e, 'Error fetching signed-in user');
+		return null;
+	}
 }
 
 export async function fetchFriendInfo(pid: number): Promise<GetUserDataWiiUResponse> {

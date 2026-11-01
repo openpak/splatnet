@@ -8,259 +8,177 @@ const { loginDomain, hostname } = config.public;
 useHead({
 	title: t('meta.title'),
 	meta: [
-		{ name: 'description', content: t('meta.description') }
-	],
-	bodyAttrs: {
-		class: 'ink Neutral'
-	}
+		{ name: 'description', content: t('page.lede') }
+	]
 });
 
-await preloadComponents('Timeline');
 const { data: stages, pending: stagesPending } = await useFetch<Settings>('/api/stages', { server: true });
 const { data: matches, pending: matchesPending } = await useFetch<Match[]>('/api/matches', { server: true });
-const { data: friends, pending: friendsPending } = await useFetch<Friend[] | null>('/api/friends');
-const { data: myself, refresh: refreshMyself } = await useFetch<Myself>('/api/myself');
+const { data: friends } = await useFetch<Friend[] | null>('/api/friends');
 
-const pages = [t('titles.regular'), t('titles.ranked'), t('titles.gatherings'), t('titles.friends')];
-
-const showSettings = ref(false);
-const showEditTag = ref(false);
-
-function parseDate(timestamp: string | object) {
-	const date = new Date(timestamp as string);
-	return date.toLocaleString(locale.value, { hour: 'numeric' });
-}
-
-async function updateTheme() {
-	if (!myself.value) {
-		return;
+type Tab = 'regular' | 'ranked' | 'gatherings' | 'friends';
+const tab = ref<Tab>('regular');
+const tabs = computed<{ id: Tab; label: string }[]>(() => {
+	const list: { id: Tab; label: string }[] = [
+		{ id: 'regular', label: t('titles.regular') },
+		{ id: 'ranked', label: t('titles.ranked') },
+		{ id: 'gatherings', label: t('titles.gatherings') }
+	];
+	if (friends.value) {
+		list.push({ id: 'friends', label: t('titles.friends') });
 	}
+	return list;
+});
 
-	refreshMyself();
+const time = (d: Date): string => d.toLocaleString(locale.value, { weekday: 'short', hour: 'numeric', minute: '2-digit' });
+
+function span(phase: Phase): string {
+	const start = new Date(phase.Date);
+	const end = new Date(start.getTime() + Number(phase.Time) * 3600 * 1000);
+	return `${time(start)} ${t('page.until')} ${time(end)}`;
 }
+
+function isNow(phase: Phase): boolean {
+	return new Date(phase.Date).getTime() <= Date.now();
+}
+
+const hasStages = computed(() => !!stages.value?.Phases?.length);
 </script>
 
 <template>
-  <div class="mainFrame">
-    <Timeline :pages="pages" />
+  <div class="wrap page">
+    <h1>SplatNet</h1>
+    <p class="lede">
+      {{ $t('page.lede') }}
+    </p>
+
     <div
-      id="content"
-      class=""
+      class="tabs"
+      role="tablist"
     >
       <button
-        v-show="!showSettings && !showEditTag"
-        class="settings"
-        @click="showSettings = true"
+        v-for="item in tabs"
+        :id="`tab-${item.id}`"
+        :key="item.id"
+        role="tab"
+        class="tab"
+        :class="{ active: tab === item.id }"
+        :aria-selected="tab === item.id"
+        :aria-controls="`panel-${item.id}`"
+        @click="tab = item.id"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="32"
-          height="32"
-          fill="#000000"
-          viewBox="0 0 256 256"
-        >
-          <path
-            d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm109.94-52.79a8,8,0,0,0-3.89-5.4l-29.83-17-.12-33.62a8,8,0,0,0-2.83-6.08,111.91,111.91,0,0,0-36.72-20.67,8,8,0,0,0-6.46.59L128,41.85,97.88,25a8,8,0,0,0-6.47-.6A112.1,112.1,0,0,0,54.73,45.15a8,8,0,0,0-2.83,6.07l-.15,33.65-29.83,17a8,8,0,0,0-3.89,5.4,106.47,106.47,0,0,0,0,41.56,8,8,0,0,0,3.89,5.4l29.83,17,.12,33.62a8,8,0,0,0,2.83,6.08,111.91,111.91,0,0,0,36.72,20.67,8,8,0,0,0,6.46-.59L128,214.15,158.12,231a7.91,7.91,0,0,0,3.9,1,8.09,8.09,0,0,0,2.57-.42,112.1,112.1,0,0,0,36.68-20.73,8,8,0,0,0,2.83-6.07l.15-33.65,29.83-17a8,8,0,0,0,3.89-5.4A106.47,106.47,0,0,0,237.94,107.21Zm-15,34.91-28.57,16.25a8,8,0,0,0-3,3c-.58,1-1.19,2.06-1.81,3.06a7.94,7.94,0,0,0-1.22,4.21l-.15,32.25a95.89,95.89,0,0,1-25.37,14.3L134,199.13a8,8,0,0,0-3.91-1h-.19c-1.21,0-2.43,0-3.64,0a8.08,8.08,0,0,0-4.1,1l-28.84,16.1A96,96,0,0,1,67.88,201l-.11-32.2a8,8,0,0,0-1.22-4.22c-.62-1-1.23-2-1.8-3.06a8.09,8.09,0,0,0-3-3.06l-28.6-16.29a90.49,90.49,0,0,1,0-28.26L61.67,97.63a8,8,0,0,0,3-3c.58-1,1.19-2.06,1.81-3.06a7.94,7.94,0,0,0,1.22-4.21l.15-32.25a95.89,95.89,0,0,1,25.37-14.3L122,56.87a8,8,0,0,0,4.1,1c1.21,0,2.43,0,3.64,0a8.08,8.08,0,0,0,4.1-1l28.84-16.1A96,96,0,0,1,188.12,55l.11,32.2a8,8,0,0,0,1.22,4.22c.62,1,1.23,2,1.8,3.06a8.09,8.09,0,0,0,3,3.06l28.6,16.29A90.49,90.49,0,0,1,222.9,142.12Z"
-          />
-        </svg>
+        {{ item.label }}
       </button>
-      <div class="controls">
-        <button
-          id="scrollLeft"
-          disabled
-        >
-          ⬅
-        </button>
-        <button id="scrollRight">
-          ➡
-        </button>
-      </div>
-      <UserSettings
-        v-show="showSettings"
-        @close="showSettings = false"
-      />
-      <EditTag
-        v-show="showEditTag"
-        v-if="myself"
-        :user="myself"
-        @close="showEditTag = false"
-        @update-theme="updateTheme"
-      />
-      <Page
-        :contents="stages"
-        :loading="stagesPending"
-        contents-empty-string="stages.none"
-      >
-        <template v-if="stages">
-          <!-- Regular Battles -->
-          <template
-            v-for="(phase, index) in stages.Phases"
-            :key="phase"
-          >
-            <Header
-              :index="index"
-            >
-              {{ parseDate(String(phase.Date)) }}
-            </Header>
-            <Polaroid
-              v-for="stage in phase.RegularStages"
-              :key="stage.MapID"
-              :map-id="stage.MapID"
-              :game-mode="phase.RegularRule"
-            />
-          </template>
-        </template>
-      </Page>
-      <Page
-        :contents="stages"
-        :loading="stagesPending"
-        contents-empty-string="stages.none"
-      >
-        <template v-if="stages">
-          <!-- Ranked Battles -->
-          <template
-            v-for="(phase, index) in stages.Phases"
-            :key="phase"
-          >
-            <Header
-              :index="index + 1"
-            >
-              {{ parseDate(String(phase.Date)) }}
-            </Header>
-            <Polaroid
-              v-for="stage in phase.GachiStages"
-              :key="stage.MapID"
-              :map-id="stage.MapID"
-              :game-mode="phase.GachiRule"
-            />
-          </template>
-        </template>
-      </Page>
-      <Page
-        :contents="matches"
-        :loading="matchesPending"
-        contents-empty-string="matches.none"
-      >
-        <!-- Matches -->
-        <template v-if="matches">
-          <Poster
-            v-for="match in matches"
-            :id="match.id"
-            :key="match.id"
-            :game-mode="Number(match.game_mode)"
-            :players="match.participants"
-            :stages="stages?.Phases"
-          />
-        </template>
-      </Page>
-      <Page
-        :contents="friends"
-        :loading="friendsPending"
-        contents-empty-string="friends.none"
-      >
-        <!-- Friends -->
-        <a
-          v-if="!friends"
-          class="pretendo"
-          :href="`${loginDomain}/account/login?redirect=${hostname}`"
-        >
-          <svg
-            role="img"
-            aria-label="Pretendo"
-            xmlns="http://www.w3.org/2000/svg"
-            width="40"
-            height="40"
-            viewBox="0 0 40 40"
-          >
-            <g
-              id="logo_type"
-              data-name="logo type"
-              transform="translate(-553 -467)"
-            >
-              <g
-                id="logo"
-                transform="translate(553 467)"
-              >
-                <g
-                  id="XMLID_6_"
-                  transform="translate(8.222 1.418)"
-                >
-                  <path
-                    id="XMLID_15_"
-                    d="M69.149,28.312c-1.051.553-.129,2.139.922,1.585a12.365,12.365,0,0,1,8.794-.571,10.829,10.829,0,0,1,6.342,4.166c.645,1,2.231.074,1.585-.922C83.308,27.169,74.7,25.436,69.149,28.312Z"
-                    transform="translate(-64.246 -23.389)"
-                    fill="#fff"
-                  />
-                  <path
-                    id="XMLID_14_"
-                    d="M82.64,14.608A15.565,15.565,0,0,0,73.5,8.45a17.535,17.535,0,0,0-12.647.9c-1.051.553-.129,2.139.922,1.585,3.411-1.788,7.6-1.714,11.209-.719,3.1.848,6.268,2.544,8.038,5.309C81.681,16.543,83.267,15.622,82.64,14.608Z"
-                    transform="translate(-57.476 -7.693)"
-                    fill="#fff"
-                  />
-                  <path
-                    id="XMLID_9_"
-                    d="M55.68,47.8a10.719,10.719,0,0,0-6.71,2.3H45.983A1.336,1.336,0,0,0,44.6,51.376V75.84a1.431,1.431,0,0,0,1.383,1.383h3.023a1.367,1.367,0,0,0,1.309-1.383V68.392A10.993,10.993,0,1,0,55.68,47.8Zm0,17.182a6.213,6.213,0,1,1,6.213-6.213A6.216,6.216,0,0,1,55.68,64.982Z"
-                    transform="translate(-44.6 -40.406)"
-                    fill="#fff"
-                  />
-                </g>
-              </g>
-            </g>
-          </svg>
-          <span>{{ $t('sign_in') }}</span>
-        </a>
-        <Tag
-          v-if="myself"
-          :user="myself?.userInfo"
-          :pnid="myself?.pnid"
-          :theme="myself?.tagTheme"
-          @click="showEditTag = true"
-        />
-        <template v-if="friends">
-          <Tag
-            v-for="friend in friends"
-            :key="friend.nnaInfo?.principalBasicInfo?.pid"
-            :user="friend"
-            :pnid="friend?.pnid"
-            :theme="friend.tagTheme"
-          />
-        </template>
-      </Page>
     </div>
+
+    <section
+      v-for="mode in (['regular', 'ranked'] as const)"
+      v-show="tab === mode"
+      :id="`panel-${mode}`"
+      :key="mode"
+      role="tabpanel"
+      :aria-labelledby="`tab-${mode}`"
+    >
+      <p
+        v-if="stagesPending"
+        class="empty"
+      >
+        {{ $t('loading') }}
+      </p>
+      <div
+        v-else-if="!hasStages"
+        class="card empty-card"
+      >
+        <h2>{{ $t('page.stages_none') }}</h2>
+        <p>{{ $t('page.stages_hint') }}</p>
+      </div>
+      <div
+        v-for="(phase, index) in stages?.Phases ?? []"
+        :key="String(phase.Date)"
+        class="phase"
+      >
+        <h2>
+          <span
+            v-if="index === 0 && isNow(phase)"
+            class="badge ok"
+          >{{ $t('page.now') }}</span>
+          <span
+            v-else-if="index <= 1"
+            class="badge"
+          >{{ $t('page.next') }}</span>
+          {{ span(phase) }}
+        </h2>
+        <div class="stages">
+          <Polaroid
+            v-for="stage in (mode === 'regular' ? phase.RegularStages : phase.GachiStages)"
+            :key="stage.MapID"
+            :map-id="stage.MapID"
+            :game-mode="mode === 'regular' ? phase.RegularRule : phase.GachiRule"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section
+      v-show="tab === 'gatherings'"
+      id="panel-gatherings"
+      role="tabpanel"
+      aria-labelledby="tab-gatherings"
+    >
+      <p
+        v-if="matchesPending"
+        class="empty"
+      >
+        {{ $t('loading') }}
+      </p>
+      <div
+        v-else-if="!matches || matches.length === 0"
+        class="card empty-card"
+      >
+        <h2>{{ $t('matches.none') }}</h2>
+      </div>
+      <div class="matches">
+        <Poster
+          v-for="match in matches ?? []"
+          :id="match.id"
+          :key="match.id"
+          :game-mode="Number(match.game_mode)"
+          :players="(match.participants as unknown as string[])"
+          :stages="stages?.Phases"
+        />
+      </div>
+    </section>
+
+    <section
+      v-if="friends"
+      v-show="tab === 'friends'"
+      id="panel-friends"
+      role="tabpanel"
+      aria-labelledby="tab-friends"
+    >
+      <ul class="roster friends">
+        <li
+          v-for="friend in friends"
+          :key="friend.nnaInfo?.principalBasicInfo?.pid"
+        >
+          {{ friend.pnid?.mii?.name ?? friend.nnaInfo?.principalBasicInfo?.mii?.name }}
+        </li>
+      </ul>
+    </section>
+    <p
+      v-if="loginDomain && !friends"
+      class="note-line"
+    >
+      <a
+        class="btn primary"
+        :href="`${loginDomain}/account/login?redirect=${hostname}`"
+      >{{ $t('sign_in') }}</a>
+    </p>
+    <p
+      v-else-if="!friends"
+      class="note-line"
+    >
+      {{ $t('page.signin_note') }}
+    </p>
   </div>
 </template>
-<script lang="ts">
-if (import.meta.client) {
-	const frame: HTMLDivElement = document.getElementById('content') as HTMLDivElement;
-	const scrollLeft: HTMLButtonElement = document.getElementById('scrollLeft') as HTMLButtonElement;
-	const scrollRight: HTMLButtonElement = document.getElementById('scrollRight') as HTMLButtonElement;
-	const pages = document.querySelectorAll('.page');
-
-	scrollLeft.addEventListener('click', (_: Event) => {
-		frame.scrollBy({
-			left: frame.clientWidth * -1,
-			top: 0,
-			behavior: 'smooth'
-		});
-	});
-
-	scrollRight.addEventListener('click', (_: Event) => {
-		frame.scrollBy({
-			left: frame.clientWidth,
-			top: 0,
-			behavior: 'smooth'
-		});
-	});
-
-	frame.addEventListener('scroll', (event) => {
-		const target = event.target as HTMLElement;
-		const maxWidth = frame.clientWidth * (pages.length - 1);
-		if (!target) {
-			return;
-		}
-
-		scrollLeft.disabled = target.scrollLeft < frame.clientWidth;
-		scrollRight.disabled = target.scrollLeft >= maxWidth;
-	});
-}
-</script>

@@ -1,6 +1,6 @@
 {
 	"meta": {
-		"title": "(es_ES) Splatoon Website",
+		"title": "(es_ES) OpenPak SplatNet",
 		"description": ""
 	},
 	"titles": {
@@ -25,7 +25,8 @@
 		"12": "Museo del Pargo",
 		"13": "Estudios Esturión",
 		"14": "Cantera Tintorera",
-		"15": "Spa Cala Bacalao"
+		"15": "Spa Cala Bacalao",
+		"none": "No Stages"
 	},
 	"modes": {
 		"cPnt": "Territorial",
@@ -458,5 +459,42 @@
 		"108": "(es_ES) Bomb Sniffer",
 		"109": "(es_ES) Ink Resistance Up",
 		"110": "(es_ES) Stealth Jump"
+	},
+	"nav": {
+		"skip": "Skip to content",
+		"main": "Main",
+		"home": "Home",
+		"titles": "Titles",
+		"features": "Features",
+		"downloads": "Downloads",
+		"status": "Status",
+		"help": "Help",
+		"getstarted": "Get started",
+		"register": "Create account"
+	},
+	"footer": {
+		"note": "OpenPak is an independent community network. Not affiliated with any console vendor.",
+		"network": "Network",
+		"project": "Project",
+		"source": "Source code",
+		"feed": {
+			"news": "News feed"
+		},
+		"press": "Press kit",
+		"legal": "Legal",
+		"terms": "Terms of use",
+		"privacy": "Privacy policy",
+		"nintendo": "Splatoon is a trademark of Nintendo; stage art belongs to its owners."
+	},
+	"page": {
+		"lede": "Stage rotations, open gatherings and who is playing, for Splatoon on the OpenPak Wii U network.",
+		"now": "Now",
+		"next": "Next",
+		"until": "until",
+		"open_slots": "open",
+		"players": "players",
+		"stages_none": "No rotation is published right now.",
+		"stages_hint": "The schedule comes from the network's BOSS server and shows up here once it is published.",
+		"signin_note": "Friend lists and tag themes need a signed-in player and are not available yet."
 	}
 }

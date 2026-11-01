@@ -1,4 +1,6 @@
 import fs from 'node:fs';
+import http from 'node:http';
+import https from 'node:https';
 import tls from 'tls';
 import * as xml2js from 'xml2js';
 import { decryptWiiU } from '@pretendonetwork/boss-crypto';
@@ -8,19 +10,48 @@ import type { BossFile } from '~~/shared/types/boss';
 const config = useRuntimeConfig();
 
 const { boss, maxResponse, fileCacheDir } = config;
-const { aes_key, hmac_key, domain, app_id } = boss;
+const { aes_key, hmac_key, domain, app_id, internal_url } = boss;
 
 tls.DEFAULT_MIN_VERSION = 'TLSv1.1';
+
+// BOSS picks its service by Host header (npts, npdi, ...), and the public names of those hosts are
+// only resolvable by consoles. With an internal URL set, connect there and keep the public Host.
+function bossGet(rawUrl: string): Promise<{ status: number; body: Buffer }> {
+	const url = new URL(rawUrl);
+	const target = internal_url ? new URL(internal_url) : url;
+	const client = target.protocol === 'https:' ? https : http;
+
+	return new Promise((resolve, reject) => {
+		const req = client.request({
+			protocol: target.protocol,
+			hostname: target.hostname,
+			port: target.port || undefined,
+			path: url.pathname + url.search,
+			headers: { Host: url.host },
+			timeout: 15000
+		}, (res) => {
+			const chunks: Buffer[] = [];
+			res.on('data', chunk => chunks.push(chunk));
+			res.on('end', () => resolve({ status: res.statusCode ?? 0, body: Buffer.concat(chunks) }));
+		});
+		req.on('timeout', () => req.destroy(new Error('BOSS request timed out')));
+		req.on('error', reject);
+		req.end();
+	});
+}
 
 async function getFilesFromTask(taskId: string, filename: string | null = null): Promise<[BossFile] | BossFile | null> {
 	const url = `${domain}/p01/tasksheet/1/${app_id}/${taskId}?c=US&l=en`;
 
-	const tasksheet = await fetch(url);
+	const tasksheet = await bossGet(url).catch((e) => {
+		logger.error('Failed to fetch tasksheet ' + e);
+		return null;
+	});
 	if (!tasksheet || tasksheet.status != 200) {
 		return null;
 	}
 
-	const text = await tasksheet.text();
+	const text = tasksheet.body.toString('utf-8');
 	const xml: TaskSheet = await xml2js.parseStringPromise(text, { explicitArray: false });
 
 	if (!xml) {
@@ -65,11 +96,11 @@ async function decryptBossFile(file: BossFile | null): Promise<Buffer<ArrayBuffe
 	}
 
 	try {
-		const response = await fetch(file.Url);
-		if (!response || response.status != 200) {
+		const response = await bossGet(file.Url);
+		if (response.status != 200) {
 			return null;
 		}
-		const buffer = Buffer.from(await response.arrayBuffer());
+		const buffer = response.body;
 		const { content } = decryptWiiU(buffer, aes_key, hmac_key);
 
 		fs.writeFileSync(`${fileCacheDir}/${file.Filename}`, content);
