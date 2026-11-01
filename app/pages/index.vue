@@ -174,11 +174,5 @@ const hasStages = computed(() => !!stages.value?.Phases?.length);
         :href="`${loginDomain}/account/login?redirect=${hostname}`"
       >{{ $t('sign_in') }}</a>
     </p>
-    <p
-      v-else-if="!friends"
-      class="note-line"
-    >
-      {{ $t('page.signin_note') }}
-    </p>
   </div>
 </template>

@@ -495,7 +495,6 @@
 		"open_slots": "open",
 		"players": "players",
 		"stages_none": "No rotation is published right now.",
-		"stages_hint": "The schedule comes from the network's BOSS server and shows up here once it is published.",
-		"signin_note": "Friend lists and tag themes need a signed-in player and are not available yet."
+		"stages_hint": "Stages show up here as soon as the next rotation is published."
 	}
 }

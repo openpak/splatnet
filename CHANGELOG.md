@@ -3,6 +3,10 @@
 Note: the early history below is the upstream project (Pretendo Splatoon-Website);
 OpenPak work starts at the port/fork commit.
 
+## v0.1.2 — 2026-11-01
+
+- No "not available yet" note for friends and tag themes; the empty-rotation hint drops the BOSS jargon
+
 ## v0.1.1 — 2026-11-01
 
 - The "no rotation yet" notices span the page width like the rest of openpak.org (were capped at 36rem)
