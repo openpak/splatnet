@@ -56,13 +56,18 @@ export default defineNuxtConfig({
 			format: 'pretty',
 			level: 'warn'
 		},
+		// openpak.org single sign-on: the website as this container reaches it, and the key that
+		// signs the session cookies. The client secret is SSO_CLIENT_OPENSPLAT_SECRET.
+		sso: {
+			url: '',
+			sessionKey: ''
+		},
 		juddURL: '',
 		mongoURI: '',
 		postgresURI: '',
 		maxResponse: 12,
 		fileCacheDir: './',
 		public: {
-			loginDomain: '',
 			hostname: ''
 		}
 	}

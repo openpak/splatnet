@@ -42,13 +42,15 @@
 		"4": "タッグマッチ"
 	},
 	"loading": "(ja_JP) Loading...",
-	"sign_in": "(ja_JP) Sign In",
 	"matches": {
 		"none": "(ja_JP) No Matches",
 		"gathering": "(ja_JP) Gathering"
 	},
 	"friends": {
-		"none": "(ja_JP) No Friends"
+		"none": "(ja_JP) No Friends",
+		"unlinked": "このOpenPakアカウントにはWii Uが連携されていないため、表示できるフレンドがいません。",
+		"link": "openpak.orgでWii Uを連携する",
+		"error": "フレンドを読み込めませんでした。しばらくしてからもう一度お試しください。"
 	},
 	"tags": {
 		"stock": "(ja_JP) Stock Patterns",
@@ -472,7 +474,10 @@
 		"help": "Help",
 		"getstarted": "Get started",
 		"register": "Create account",
-		"splatfest": "Splatfest"
+		"splatfest": "Splatfest",
+		"signin": "ログイン",
+		"signout": "ログアウト",
+		"account": "フレンド"
 	},
 	"footer": {
 		"note": "OpenPak is an independent community network. Not affiliated with any console vendor.",
@@ -524,5 +529,10 @@
 		"nex_none": "No competition ranking has been uploaded for this Splatfest.",
 		"votes": "Team members",
 		"last": "Last upload"
+	},
+	"auth": {
+		"failed_title": "ログインが完了しませんでした",
+		"failed": "OpenSplatに戻り、ログインをもう一度お試しください。",
+		"back": "OpenSplatに戻る"
 	}
 }

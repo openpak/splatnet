@@ -3,6 +3,13 @@
 Note: the early history below is the upstream project (Pretendo Splatoon-Website);
 OpenPak work starts at the port/fork commit.
 
+## v0.3.0 — 2026-11-01
+
+- Sign-in through openpak.org single sign-on (`/auth/login`, `/auth/callback`, `/auth/logout`; state and PKCE, server-side code exchange). The top bar has the same Sign in button and account chip as openpak.org; the site has no sign-in form
+- Friends tab for a signed-in player, from the Wii U PID the account carries; an account with no Wii U linked is told so, with a link to openpak.org
+- Removed the upstream access-token sign-in and its profile and tag-theme endpoints. Tag themes are not offered
+- New: `SSO_CLIENT_OPENSPLAT_SECRET`, `PN_SPLATOON_WEBSITE_SSO_URL`, `PN_SPLATOON_WEBSITE_SSO_SESSION_KEY`; `npm test`
+
 ## v0.2.5 — 2026-11-01
 
 - Same layout as every Open site: the top bar lists only OpenSplat's pages (Rotations, Splatfest); the footer has OpenPak, OpenSplat, Project and Legal columns

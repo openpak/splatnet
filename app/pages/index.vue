@@ -2,8 +2,6 @@
 import '~/assets/css/index.css';
 
 const { t, locale } = useI18n();
-const config = useRuntimeConfig();
-const { loginDomain, hostname } = config.public;
 
 useHead({
 	title: t('meta.title'),
@@ -14,17 +12,24 @@ useHead({
 
 const { data: stages, pending: stagesPending } = await useFetch<Settings>('/api/stages', { server: true });
 const { data: matches, pending: matchesPending } = await useFetch<Match[]>('/api/matches', { server: true });
-const { data: friends } = await useFetch<Friend[] | null>('/api/friends');
+const { data: session } = await useSession();
+const { data: friends, error: friendsError, pending: friendsPending } = await useFetch<FriendsResponse>('/api/friends', {
+	key: 'friends',
+	server: false, // never hold the page up on the friends service
+	headers: useRequestHeaders(['cookie']),
+	immediate: !!session.value?.signedIn
+});
 
 type Tab = 'regular' | 'ranked' | 'gatherings' | 'friends';
-const tab = ref<Tab>('regular');
+const route = useRoute();
+const tab = ref<Tab>(route.query.tab === 'friends' && session.value?.signedIn ? 'friends' : 'regular');
 const tabs = computed<{ id: Tab; label: string }[]>(() => {
 	const list: { id: Tab; label: string }[] = [
 		{ id: 'regular', label: t('titles.regular') },
 		{ id: 'ranked', label: t('titles.ranked') },
 		{ id: 'gatherings', label: t('titles.gatherings') }
 	];
-	if (friends.value) {
+	if (session.value?.signedIn) {
 		list.push({ id: 'friends', label: t('titles.friends') });
 	}
 	return list;
@@ -150,29 +155,48 @@ const hasStages = computed(() => !!stages.value?.Phases?.length);
     </section>
 
     <section
-      v-if="friends"
+      v-if="session?.signedIn"
       v-show="tab === 'friends'"
       id="panel-friends"
       role="tabpanel"
       aria-labelledby="tab-friends"
     >
-      <ul class="roster friends">
+      <p
+        v-if="friendsError"
+        class="card empty-card"
+      >
+        {{ $t('friends.error') }}
+      </p>
+      <p
+        v-else-if="!session.linked"
+        class="card empty-card"
+      >
+        {{ $t('friends.unlinked') }}
+        <a href="https://openpak.org/link">{{ $t('friends.link') }}</a>
+      </p>
+      <p
+        v-else-if="friendsPending && !friends"
+        class="empty"
+      >
+        {{ $t('loading') }}
+      </p>
+      <p
+        v-else-if="!friends?.friends.length"
+        class="card empty-card"
+      >
+        {{ $t('friends.none') }}
+      </p>
+      <ul
+        v-else
+        class="roster friends"
+      >
         <li
-          v-for="friend in friends"
-          :key="friend.nnaInfo?.principalBasicInfo?.pid"
+          v-for="friend in friends.friends"
+          :key="friend.pid"
         >
-          {{ friend.pnid?.mii?.name ?? friend.nnaInfo?.principalBasicInfo?.mii?.name }}
+          {{ friend.name }}
         </li>
       </ul>
     </section>
-    <p
-      v-if="loginDomain && !friends"
-      class="note-line"
-    >
-      <a
-        class="btn primary"
-        :href="`${loginDomain}/account/login?redirect=${hostname}`"
-      >{{ $t('sign_in') }}</a>
-    </p>
   </div>
 </template>

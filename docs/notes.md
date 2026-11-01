@@ -8,9 +8,7 @@
 - Player names use `nn-account` `GetUserData` per pid. OpenPak's account server has no `GetPNIDs`.
 - BOSS is reached with a pinned `Host` header (`BOSS_INTERNAL_URL`), because BOSS picks its service by host and
   the public `*.openpak.org` BOSS names resolve only for consoles.
-- Sign-in is not wired. Upstream takes a Pretendo `access_token` cookie and asks the `api` gRPC service about
-  it; OpenPak's account server does not serve that service. Without a sign-in the friends and tag views stay
-  hidden. Setting `PUBLIC_LOGIN_DOMAIN` shows upstream's sign-in link again.
+- Sign-in is openpak.org single sign-on (see deploy.md). The friends list uses the Wii U PID the account carries; tag themes are not built.
 
 ## Open
 

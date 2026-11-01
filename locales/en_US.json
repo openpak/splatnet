@@ -43,13 +43,15 @@
 		"4": "Squad Battle"
 	},
 	"loading": "Loading...",
-	"sign_in": "Sign In",
 	"matches": {
 		"none": "No Matches",
 		"gathering": "Gathering"
 	},
 	"friends": {
-		"none": "No Friends"
+		"none": "No Friends",
+		"unlinked": "This OpenPak account has no Wii U linked, so there are no friends to show.",
+		"link": "Link your Wii U on openpak.org",
+		"error": "Loading your friends did not work. Try again in a minute."
 	},
 	"tags": {
 		"stock": "Stock Patterns",
@@ -473,7 +475,10 @@
 		"help": "Help",
 		"getstarted": "Get started",
 		"register": "Create account",
-		"splatfest": "Splatfest"
+		"splatfest": "Splatfest",
+		"signin": "Sign in",
+		"signout": "Sign out",
+		"account": "Your friends"
 	},
 	"footer": {
 		"note": "OpenPak is an independent community network. Not affiliated with any console vendor.",
@@ -525,5 +530,10 @@
 		"nex_none": "No competition ranking has been uploaded for this Splatfest.",
 		"votes": "Team members",
 		"last": "Last upload"
+	},
+	"auth": {
+		"failed_title": "Sign-in did not finish",
+		"failed": "Go back to OpenSplat and press Sign in to try again.",
+		"back": "Back to OpenSplat"
 	}
 }

@@ -12,7 +12,8 @@
 		"dev": "nuxt dev --host",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
-		"typecheck": "nuxt typecheck"
+		"typecheck": "nuxt typecheck",
+		"test": "node --test \"tests/*.test.ts\""
 	},
 	"dependencies": {
 		"@neato/config": "^4.1.0",

@@ -18,7 +18,7 @@ OpenSplat is OpenPak's replacement for Nintendo's SplatNet, the Splatoon 1 compa
 | --- | --- |
 | Regular and Ranked Battle stages | `VSSetting.byaml` from BOSS (task `schdat2`, app `rjVlM7hUXPxmYQJh`), decrypted with the BOSS keys and cached for an hour |
 | Gatherings | Open sessions in the Splatoon title database (`matchmaking` schema), player names from the account server |
-| Friends and tag themes | Needs a signed-in player; see [Notes](docs/notes.md) |
+| Friends | Signed in through openpak.org, by the account's Wii U PID; see [Deploy](docs/deploy.md) |
 
 ## Run
 

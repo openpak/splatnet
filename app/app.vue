@@ -17,6 +17,8 @@ useHead({
 
 const site = 'https://openpak.org';
 const route = useRoute();
+const { data: session } = await useSession();
+const initial = computed(() => (session.value?.name || '?').trim().charAt(0).toUpperCase() || '?');
 </script>
 
 <template>
@@ -52,6 +54,28 @@ const route = useRoute();
           {{ $t('nav.splatfest') }}
         </NuxtLink>
       </nav>
+      <div
+        v-if="session?.enabled"
+        class="ml-auto"
+      >
+        <template v-if="session.signedIn">
+          <a
+            class="btn ghost"
+            href="/auth/logout"
+          >{{ $t('nav.signout') }}</a>
+          <a
+            class="avatar-btn"
+            href="/?tab=friends"
+            :aria-label="$t('nav.account')"
+            :title="session.name"
+          >{{ initial }}</a>
+        </template>
+        <a
+          v-else
+          class="btn ghost"
+          :href="`/auth/login?next=${encodeURIComponent(route.fullPath)}`"
+        >{{ $t('nav.signin') }}</a>
+      </div>
     </div>
   </header>
   <main id="main">
@@ -89,8 +113,16 @@ const route = useRoute();
           OpenSplat
         </h2>
         <ul>
-          <li><NuxtLink to="/">{{ $t('nav.rotations') }}</NuxtLink></li>
-          <li><NuxtLink to="/splatfest">{{ $t('nav.splatfest') }}</NuxtLink></li>
+          <li>
+            <NuxtLink to="/">
+              {{ $t('nav.rotations') }}
+            </NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/splatfest">
+              {{ $t('nav.splatfest') }}
+            </NuxtLink>
+          </li>
         </ul>
       </nav>
       <nav aria-labelledby="foot-proj">

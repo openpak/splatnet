@@ -1,7 +1,10 @@
-import type { FriendInfoWiiU } from '@pretendonetwork/grpc/friends/v2/friend_info';
-import type { GetUserDataResponse } from '@pretendonetwork/grpc/api/get_user_data_rpc';
+// A friend of the signed-in player, as the friends tab shows them.
+export type Friend = {
+	pid: number;
+	name: string;
+};
 
-export interface Friend extends FriendInfoWiiU {
-	tagTheme: string;
-	pnid: GetUserDataResponse;
-}
+export type FriendsResponse = {
+	linked: boolean;
+	friends: Friend[];
+};

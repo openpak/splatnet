@@ -1,50 +1,34 @@
-import { getCookie } from 'h3';
+import { createError, setResponseHeader } from 'h3';
 
-declare global {
-	interface BigInt {
-		toJSON: any;
+// The signed-in player's own friend list, by the Wii U PID their OpenPak account carries.
+// Signed out is a 401; an account with no Wii U linked has no list (linked: false).
+export default defineEventHandler(async (event): Promise<FriendsResponse> => {
+	setResponseHeader(event, 'cache-control', 'no-store');
+	const session = currentSession(event);
+
+	if (!session) {
+		throw createError({ statusCode: 401 });
 	}
-	interface JSON {
-		rawJSON: any;
+	if (!session.pid) {
+		return { linked: false, friends: [] };
 	}
-}
+	try {
+		const friends = await fetchFriends(session.pid);
+		const pids = friends.map(friend => friend.nnaInfo?.principalBasicInfo?.pid ?? 0).filter(pid => pid > 0);
+		const accounts = await fetchPNIDs(pids);
 
-BigInt.prototype.toJSON = function (): string {
-	return JSON.rawJSON(this.toString());
-};
-
-export default defineEventHandler(async (event) => {
-	logger.debug('Fetching friends');
-	const authToken = getCookie(event, 'access_token');
-
-	if (!authToken) {
-		return null;
-	}
-	const userData = await fetchPNID(authToken);
-
-	if (!userData) {
-		return null;
-	}
-	const friends = await fetchFriends(userData.pid);
-
-	if (!friends) {
-		return null;
-	}
-
-	const friendsPNIDs = await fetchPNIDs(friends.map(friend => friend.nnaInfo?.principalBasicInfo?.pid ?? 0));
-
-	const friendPIDs = friends.map(friend => friend.nnaInfo?.principalBasicInfo?.pid ?? 0);
-
-	const friendSettings = await getUsersData(friendPIDs);
-	return friends.map((friend) => {
-		const pid = friend.nnaInfo?.principalBasicInfo?.pid ?? -1;
-		const pnid = friendsPNIDs[pid];
-		const result = {
-			...friend,
-			pnid: pnid,
-			tagTheme: friendSettings.find(settings =>
-				settings.pid == friend.nnaInfo?.principalBasicInfo?.pid)?.splash_tag_classes ?? 'bravo-blend PinkBlue stripes'
+		return {
+			linked: true,
+			friends: pids.map(pid => ({
+				pid,
+				name: accounts[pid]?.mii?.name ??
+					friends.find(friend => friend.nnaInfo?.principalBasicInfo?.pid === pid)?.nnaInfo?.principalBasicInfo?.mii?.name ??
+					accounts[pid]?.username ??
+					''
+			})).filter(friend => friend.name)
 		};
-		return result;
-	});
+	} catch (e) {
+		logger.error(e, 'Failed to load the friend list');
+		throw createError({ statusCode: 502 });
+	}
 });
