@@ -3,6 +3,10 @@
 Note: the early history below is the upstream project (Pretendo Splatoon-Website);
 OpenPak work starts at the port/fork commit.
 
+## v0.2.5 — 2026-11-01
+
+- Same layout as every Open site: the top bar lists only OpenSplat's pages (Rotations, Splatfest); the footer has OpenPak, OpenSplat, Project and Legal columns
+
 ## v0.2.4 — 2026-11-01
 
 - Top bar and footer show only the OpenSplat mark and name (no OpenPak logo or "OpenPak /" prefix)

@@ -461,6 +461,7 @@
 		"110": "(ja_JP) Stealth Jump"
 	},
 	"nav": {
+		"rotations": "ステージ",
 		"skip": "Skip to content",
 		"main": "Main",
 		"home": "Home",

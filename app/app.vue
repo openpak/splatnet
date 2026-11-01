@@ -39,17 +39,11 @@ const route = useRoute();
         class="navlinks"
         :aria-label="$t('nav.main')"
       >
-        <a :href="`${site}/`">{{ $t('nav.home') }}</a>
-        <a :href="`${site}/titles`">{{ $t('nav.titles') }}</a>
-        <a :href="`${site}/features`">{{ $t('nav.features') }}</a>
-        <a :href="`${site}/downloads`">{{ $t('nav.downloads') }}</a>
-        <a :href="`${site}/status`">{{ $t('nav.status') }}</a>
-        <a :href="`${site}/help`">{{ $t('nav.help') }}</a>
         <NuxtLink
           to="/"
           :aria-current="route.path === '/' ? 'page' : undefined"
         >
-          OpenSplat
+          {{ $t('nav.rotations') }}
         </NuxtLink>
         <NuxtLink
           to="/splatfest"
@@ -81,22 +75,22 @@ const route = useRoute();
       </div>
       <nav aria-labelledby="foot-net">
         <h2 id="foot-net">
-          {{ $t('footer.network') }}
+          OpenPak
         </h2>
         <ul>
+          <li><a :href="`${site}/`">{{ $t('nav.home') }}</a></li>
           <li><a :href="`${site}/titles`">{{ $t('nav.titles') }}</a></li>
           <li><a :href="`${site}/features`">{{ $t('nav.features') }}</a></li>
           <li><a :href="`${site}/status`">{{ $t('nav.status') }}</a></li>
         </ul>
       </nav>
-      <nav aria-labelledby="foot-start">
-        <h2 id="foot-start">
-          {{ $t('nav.getstarted') }}
+      <nav aria-labelledby="foot-site">
+        <h2 id="foot-site">
+          OpenSplat
         </h2>
         <ul>
-          <li><a :href="`${site}/downloads`">{{ $t('nav.downloads') }}</a></li>
-          <li><a :href="`${site}/register`">{{ $t('nav.register') }}</a></li>
-          <li><a :href="`${site}/help`">{{ $t('nav.help') }}</a></li>
+          <li><NuxtLink to="/">{{ $t('nav.rotations') }}</NuxtLink></li>
+          <li><NuxtLink to="/splatfest">{{ $t('nav.splatfest') }}</NuxtLink></li>
         </ul>
       </nav>
       <nav aria-labelledby="foot-proj">
@@ -105,8 +99,7 @@ const route = useRoute();
         </h2>
         <ul>
           <li><a href="https://github.com/openpak/splatnet">{{ $t('footer.source') }}</a></li>
-          <li><a :href="`${site}/feed/news.xml`">{{ $t('footer.feed.news') }}</a></li>
-          <li><a :href="`${site}/press`">{{ $t('footer.press') }}</a></li>
+          <li><a :href="`${site}/help`">{{ $t('nav.help') }}</a></li>
         </ul>
       </nav>
       <nav aria-labelledby="foot-legal">

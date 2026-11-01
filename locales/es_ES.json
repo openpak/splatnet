@@ -461,6 +461,7 @@
 		"110": "(es_ES) Stealth Jump"
 	},
 	"nav": {
+		"rotations": "Rotaciones",
 		"skip": "Skip to content",
 		"main": "Main",
 		"home": "Home",

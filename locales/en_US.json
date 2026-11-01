@@ -462,6 +462,7 @@
 		"110": "Stealth Jump"
 	},
 	"nav": {
+		"rotations": "Rotations",
 		"skip": "Skip to content",
 		"main": "Main",
 		"home": "Home",
