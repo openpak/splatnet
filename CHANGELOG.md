@@ -11,6 +11,10 @@ OpenPak work starts at the port/fork commit.
 
 - The "no rotation yet" notices span the page width like the rest of openpak.org (were capped at 36rem)
 
+## v0.2.3 - 2026-11-01
+
+- Page title is "OpenSplat".
+
 ## v0.2.2 - 2026-11-01
 
 - OpenSplat mark: favicon, SVG icon, Apple touch icon, 192 and 512 icons; the top bar shows the OpenPak logo, a slash and the OpenSplat mark with the name. Lint fix for the Judd client.
