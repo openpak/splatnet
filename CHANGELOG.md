@@ -3,6 +3,10 @@
 Note: the early history below is the upstream project (Pretendo Splatoon-Website);
 OpenPak work starts at the port/fork commit.
 
+## v0.3.2 — 2026-11-01
+
+- Footer line "Part of the OpenPak network" moved to the bottom line, as on the other Open sites
+
 ## v0.3.1 — 2026-11-01
 
 - The site's only address is splat.openpak.org (was opensplat.openpak.org): sign-in redirect origin and docs

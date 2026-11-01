@@ -96,9 +96,6 @@ const initial = computed(() => (session.value?.name || '?').trim().charAt(0).toU
         <p class="note">
           {{ $t('footer.note') }}
         </p>
-        <p class="note">
-          <a :href="`${site}/`">{{ $t('footer.network_line') }}</a>
-        </p>
       </div>
       <nav aria-labelledby="foot-net">
         <h2 id="foot-net">
@@ -148,7 +145,7 @@ const initial = computed(() => (session.value?.name || '?').trim().charAt(0).toU
         </ul>
       </nav>
       <div class="foot-bottom">
-        <span>© OpenPak · AGPL-3.0 · {{ $t('footer.nintendo') }}</span>
+        <span><a :href="`${site}/`">{{ $t('footer.network_line') }}</a> · © OpenPak · AGPL-3.0 · {{ $t('footer.nintendo') }}</span>
       </div>
     </div>
   </footer>
