@@ -13,7 +13,7 @@ useHead({
 const { data: stages, pending: stagesPending } = await useFetch<Settings>('/api/stages', { server: true });
 const { data: matches, pending: matchesPending } = await useFetch<Match[]>('/api/matches', { server: true });
 const { data: session } = await useSession();
-const { data: friends, error: friendsError, pending: friendsPending } = await useFetch<FriendsResponse>('/api/friends', {
+const { data: friends, error: friendsError } = await useFetch<FriendsResponse>('/api/friends', {
 	key: 'friends',
 	server: false, // never hold the page up on the friends service
 	headers: useRequestHeaders(['cookie']),
@@ -175,7 +175,7 @@ const hasStages = computed(() => !!stages.value?.Phases?.length);
         <a href="https://openpak.org/link">{{ $t('friends.link') }}</a>
       </p>
       <p
-        v-else-if="friendsPending && !friends"
+        v-else-if="!friends"
         class="empty"
       >
         {{ $t('loading') }}

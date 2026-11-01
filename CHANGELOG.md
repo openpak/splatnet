@@ -3,6 +3,10 @@
 Note: the early history below is the upstream project (Pretendo Splatoon-Website);
 OpenPak work starts at the port/fork commit.
 
+## v0.3.3 — 2026-11-01
+
+- The friends tab shows "Loading..." until the list arrives instead of "No Friends"
+
 ## v0.3.2 — 2026-11-01
 
 - Footer line "Part of the OpenPak network" moved to the bottom line, as on the other Open sites
