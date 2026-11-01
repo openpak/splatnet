@@ -3,6 +3,10 @@
 Note: the early history below is the upstream project (Pretendo Splatoon-Website);
 OpenPak work starts at the port/fork commit.
 
+## v0.1.1 — 2026-11-01
+
+- The "no rotation yet" notices span the page width like the rest of openpak.org (were capped at 36rem)
+
 ## v0.1.0 — 2026-11-01
 
 - OpenPak fork: openpak.org look and header/footer, self-hosted font, Pretendo branding removed

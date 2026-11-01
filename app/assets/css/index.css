@@ -181,6 +181,6 @@ main p { margin: 0 0 1rem; }
 .roster li { padding: .15rem .7rem; border-radius: 999px; background: var(--paper-2); border: 1px solid var(--line); font-size: .9rem; }
 
 .empty { color: var(--muted); }
-.empty-card { padding: 20px 22px; max-width: 36rem; }
+.empty-card { padding: 20px 22px; }
 .empty-card p { color: var(--ink-2); margin: 0; }
 .note-line { margin-top: 36px; color: var(--muted); font-size: .9rem; }
