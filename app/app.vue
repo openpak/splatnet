@@ -1,7 +1,13 @@
 <script setup lang="ts">
 useHead({
 	htmlAttrs: { lang: 'en' },
-	link: [{ rel: 'icon', type: 'image/svg+xml', href: '/icon.svg' }],
+	link: [
+		{ rel: 'icon', href: '/favicon.ico', sizes: '32x32' },
+		{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+		{ rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+		{ rel: 'icon', type: 'image/png', sizes: '192x192', href: '/icon-192.png' },
+		{ rel: 'icon', type: 'image/png', sizes: '512x512', href: '/icon-512.png' }
+	],
 	meta: [
 		{ name: 'color-scheme', content: 'light dark' },
 		{ name: 'theme-color', content: '#e9ecf0', media: '(prefers-color-scheme: light)' },
@@ -37,6 +43,11 @@ const route = useRoute();
       <a
         href="/"
         class="brand-site"
+      ><img
+        src="/opensplat.svg"
+        alt=""
+        width="32"
+        height="32"
       >OpenSplat</a>
       <nav
         class="navlinks"

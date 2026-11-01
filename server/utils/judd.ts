@@ -20,5 +20,5 @@ async function juddGet<T>(path: string): Promise<T | null> {
 }
 
 export const juddAvailable = (): boolean => !!juddURL;
-export const fetchJuddFests = () => juddGet<{ festId: number; matches: number; players: number }[]>('/api/splatfests');
-export const fetchJuddFest = (festId: number) => juddGet<JuddFest>(`/api/splatfests/${festId}`);
+export const fetchJuddFests = (): Promise<{ festId: number; matches: number; players: number }[] | null> => juddGet<{ festId: number; matches: number; players: number }[]>('/api/splatfests');
+export const fetchJuddFest = (festId: number): Promise<JuddFest | null> => juddGet<JuddFest>(`/api/splatfests/${festId}`);
