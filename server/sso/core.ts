@@ -140,7 +140,3 @@ export function readSession(cfg: SsoConfig, cookie: string | undefined, now = Da
 
 	return s && s.account && s.exp > now / 1000 ? s : null;
 }
-
-// Sign out: openpak.org asks before it ends its own session, then sends the person back here.
-export const logoutURL = (cfg: SsoConfig): string =>
-	`${cfg.openpakURL}/account/sso/logout?redirect_uri=${encodeURIComponent(`${cfg.publicURL}/`)}`;

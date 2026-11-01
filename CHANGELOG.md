@@ -3,6 +3,10 @@
 Note: the early history below is the upstream project (Pretendo Splatoon-Website);
 OpenPak work starts at the port/fork commit.
 
+## v0.3.5 — 2026-11-01
+
+- Sign out ends only this site's session and returns to the home page; it no longer goes through openpak.org's "Sign out of OpenPak?" page, and openpak.org stays signed in. The next Sign in may sign straight back in while openpak.org is signed in
+
 ## v0.3.4 — 2026-11-01
 
 - Spanish and Japanese: the "(es_ES)" / "(ja_JP)" placeholder text is replaced by real translations (interface, Splatfest pages, Japanese weapon, sub, special and ability names); gear and Spanish weapon names that have no name we are sure of stay in English

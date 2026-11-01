@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { createServer } from 'node:http';
 import { after, describe, it } from 'node:test';
-import { beginLogin, completeCallback, localPath, logoutURL, open, readSession, seal } from '../server/sso/core.ts';
+import { beginLogin, completeCallback, localPath, open, readSession, seal } from '../server/sso/core.ts';
 import type { IncomingMessage, Server } from 'node:http';
 import type { SsoConfig } from '../server/sso/core.ts';
 
@@ -165,8 +165,13 @@ describe('helpers', () => {
 		}
 	});
 
-	it('sign-out goes through openpak.org and back', () => {
-		assert.equal(logoutURL(cfgFor('http://x')), 'https://openpak.org/account/sso/logout?redirect_uri=https%3A%2F%2Fopensplat.test%2F');
+	it('sign-out stays on this site and never calls openpak.org', async () => {
+		const { readFile } = await import('node:fs/promises');
+		const src = await readFile(new URL('../server/routes/auth/logout.get.ts', import.meta.url), 'utf8');
+
+		assert.match(src, /clearSessionCookie/);
+		assert.match(src, /sendRedirect\(event, '\/', 303\)/);
+		assert.doesNotMatch(src, /sso\/logout|openpakURL/);
 	});
 
 	it('open rejects junk', () => {

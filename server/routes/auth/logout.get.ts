@@ -1,6 +1,6 @@
 import { createError, sendRedirect, setResponseHeader } from 'h3';
-import { logoutURL } from '~~/server/sso/core';
 
+// Sign out of this site only: openpak.org stays signed in (like leaving one Google app).
 export default defineEventHandler((event) => {
 	const cfg = ssoConfig();
 
@@ -8,8 +8,6 @@ export default defineEventHandler((event) => {
 		throw createError({ statusCode: 404 });
 	}
 	setResponseHeader(event, 'cache-control', 'no-store');
-	const was = !!currentSession(event);
-
 	clearSessionCookie(event, cfg);
-	return sendRedirect(event, was ? logoutURL(cfg) : '/', 303);
+	return sendRedirect(event, '/', 303);
 });

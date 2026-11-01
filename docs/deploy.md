@@ -22,8 +22,8 @@ hostname; see [Notes](notes.md) for what the owner has to add there.
 
 Client `opensplat`; the contract is `docs/sso.md` in the website repo. `/auth/login` redirects to
 `https://openpak.org/account/sso/authorize` (state and PKCE in a short-lived signed cookie), `/auth/callback`
-swaps the code at `POST $PN_SPLATOON_WEBSITE_SSO_URL/internal/sso/token`, `/auth/logout` ends the site session and goes
-through openpak.org's `/account/sso/logout`. Needed in the container environment (sign-in is hidden unless all are set):
+swaps the code at `POST $PN_SPLATOON_WEBSITE_SSO_URL/internal/sso/token`, `GET /auth/logout` ends only the site session and
+redirects (303) to `/`; openpak.org stays signed in. Needed in the container environment (sign-in is hidden unless all are set):
 
 | Variable | Value |
 | --- | --- |
