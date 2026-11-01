@@ -56,6 +56,7 @@ export default defineNuxtConfig({
 			format: 'pretty',
 			level: 'warn'
 		},
+		juddURL: '',
 		mongoURI: '',
 		postgresURI: '',
 		maxResponse: 12,

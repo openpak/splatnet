@@ -47,7 +47,7 @@ const hasStages = computed(() => !!stages.value?.Phases?.length);
 
 <template>
   <div class="wrap page">
-    <h1>SplatNet</h1>
+    <h1>OpenSplat</h1>
     <p class="lede">
       {{ $t('page.lede') }}
     </p>

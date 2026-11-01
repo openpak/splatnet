@@ -37,3 +37,50 @@ export async function fetchMatches(): Promise<Match[]> {
 		return [];
 	}
 }
+
+// The Splatfest competition ranking, written by the game server (ranking_splatoon schema).
+// Both reads answer "nothing yet" if the schema is missing or the database is down.
+export async function fetchNexFests(): Promise<{ festId: number; players: number }[]> {
+	if (!sql) {
+		await connectDB();
+	}
+	if (!sql) {
+		return [];
+	}
+	try {
+		const rows = await sql<{ splatfest_id: string; players: string }[]>`
+			SELECT splatfest_id, count(*) AS players FROM ranking_splatoon.user_scores
+			GROUP BY splatfest_id ORDER BY splatfest_id DESC LIMIT 50`;
+		return rows.map(r => ({ festId: Number(r.splatfest_id), players: Number(r.players) }));
+	} catch {
+		return [];
+	}
+}
+
+export async function fetchNexFest(festId: number): Promise<NexFest | null> {
+	if (!sql) {
+		await connectDB();
+	}
+	if (!sql) {
+		return null;
+	}
+	try {
+		const votes = await sql<{ team_id: number; n: string }[]>`
+			SELECT team_id, count(*) AS n FROM ranking_splatoon.user_scores
+			WHERE splatfest_id = ${festId} AND team_id < 2 GROUP BY team_id`;
+		const wins = await sql<{ team_id: number; n: string }[]>`
+			SELECT team_id, COALESCE(sum(team_score), 0) AS n FROM ranking_splatoon.results
+			WHERE splatfest_id = ${festId} AND team_id < 2 GROUP BY team_id`;
+		const out: NexFest = { festId, votes: [0, 0], wins: [0, 0], players: 0 };
+		for (const r of votes) {
+			out.votes[r.team_id] = Number(r.n);
+			out.players += Number(r.n);
+		}
+		for (const r of wins) {
+			out.wins[r.team_id] = Number(r.n);
+		}
+		return out;
+	} catch {
+		return null;
+	}
+}

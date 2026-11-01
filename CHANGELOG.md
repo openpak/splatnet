@@ -11,6 +11,15 @@ OpenPak work starts at the port/fork commit.
 
 - The "no rotation yet" notices span the page width like the rest of openpak.org (were capped at 36rem)
 
+## v0.2.0 - 2026-11-01
+
+- New page `/splatfest`: per-team Splatfest results from two sources, Judd's read API (`PN_SPLATOON_WEBSITE_JUDD_URL`, match results the game uploads) and the game server's competition ranking (`ranking_splatoon` tables in the title database). API: `/api/splatfest`.
+- The site is now called OpenSplat (the repo, image and directory keep the name splatnet for now): page title, h1, nav, locales, README and docs. Top bar is the OpenPak logo (links to openpak.org), a slash and the name OpenSplat (links to the site home), visible on mobile too; the old mobile `::after` label is gone.
+- New hostname `opensplat.openpak.org` next to `splatnet.openpak.org` on the Traefik router. The 301 from the old name waits until the Cloudflare hostname is live (docs/deploy.md).
+- Fix: footer showed the raw key `footer.legal.notices`; it is now `footer.legal_notices`, "Trademarks and takedowns", in all locales.
+- Fix: the page lede no longer wraps at 44rem; shortened to "Stage rotations, open gatherings and who's playing in Splatoon on OpenPak."
+- Checked every `$t()` key in `app/` against all three locales; the only misses are the dynamic `modes.*` and `stages.*` keys and `titles.friends` in es/ja, which fall back to English.
+
 ## v0.1.0 — 2026-11-01
 
 - OpenPak fork: openpak.org look and header/footer, self-hosted font, Pretendo branding removed

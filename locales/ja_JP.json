@@ -1,6 +1,6 @@
 {
 	"meta": {
-		"title": "(ja_JP) OpenPak SplatNet",
+		"title": "(ja_JP) OpenPak OpenSplat",
 		"description": ""
 	},
 	"titles": {
@@ -470,7 +470,8 @@
 		"status": "Status",
 		"help": "Help",
 		"getstarted": "Get started",
-		"register": "Create account"
+		"register": "Create account",
+		"splatfest": "Splatfest"
 	},
 	"footer": {
 		"note": "OpenPak is an independent community network. Not affiliated with any console vendor.",
@@ -484,10 +485,11 @@
 		"legal": "Legal",
 		"terms": "Terms of use",
 		"privacy": "Privacy policy",
-		"nintendo": "Splatoon is a trademark of Nintendo; stage art belongs to its owners."
+		"nintendo": "Splatoon is a trademark of Nintendo; stage art belongs to its owners.",
+		"legal_notices": "Trademarks and takedowns"
 	},
 	"page": {
-		"lede": "Stage rotations, open gatherings and who is playing, for Splatoon on the OpenPak Wii U network.",
+		"lede": "Stage rotations, open gatherings and who's playing in Splatoon on OpenPak.",
 		"now": "Now",
 		"next": "Next",
 		"until": "until",
@@ -495,5 +497,31 @@
 		"players": "players",
 		"stages_none": "No rotation is published right now.",
 		"stages_hint": "Stages show up here as soon as the next rotation is published."
+	},
+	"fest": {
+		"title": "Splatfest results",
+		"lede": "Team totals for each Splatfest, from the results the game uploads after every match.",
+		"none": "No Splatfest results yet",
+		"none_hint": "Results appear here once players have finished Splatfest matches.",
+		"pick": "Splatfest",
+		"fest_n": "Splatfest {id}",
+		"alpha": "Team Alpha",
+		"bravo": "Team Bravo",
+		"leading": "Ahead",
+		"players": "Players",
+		"matches": "Matches",
+		"wins": "Wins",
+		"win_share": "Share of wins",
+		"paint": "Turf painted",
+		"kills": "Splats",
+		"best_power": "Best Splatfest Power",
+		"judd": "Match results",
+		"judd_none": "No match results have been uploaded for this Splatfest.",
+		"judd_off": "Match results are not connected right now.",
+		"nex": "Competition ranking",
+		"nex_hint": "The totals the game itself shows on its results screen.",
+		"nex_none": "No competition ranking has been uploaded for this Splatfest.",
+		"votes": "Team members",
+		"last": "Last upload"
 	}
 }

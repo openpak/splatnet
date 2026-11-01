@@ -16,5 +16,5 @@ Settings are in `example.env`; every one is prefixed `PN_SPLATOON_WEBSITE_`.
 ## Production
 
 Quadlet `openpak-splatnet` on the primary box, network `openpak.network`, HTTP 8080, Traefik router
-`splatnet-web` on the `web` entrypoint for `splatnet.openpak.org`. The public name is a Cloudflare
+`splatnet-web` on the `web` entrypoint for `opensplat.openpak.org` and `splatnet.openpak.org`. Once the owner confirms the Cloudflare name `opensplat.openpak.org` (tunnel to `http://localhost:20120`) is live, add a `redirectRegex` middleware on the `splatnet-web` router sending `^https?://splatnet.openpak.org/(.*)` to `https://opensplat.openpak.org/${1}` (permanent). The public name is a Cloudflare
 hostname; see [Notes](notes.md) for what the owner has to add there.

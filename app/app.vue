@@ -10,6 +10,7 @@ useHead({
 });
 
 const site = 'https://openpak.org';
+const route = useRoute();
 </script>
 
 <template>
@@ -22,12 +23,21 @@ const site = 'https://openpak.org';
       <a
         :href="site"
         class="brand"
+        aria-label="OpenPak"
       ><img
         src="/icon.svg"
         alt=""
         width="28"
         height="28"
       >OpenPak</a>
+      <span
+        class="sep"
+        aria-hidden="true"
+      >/</span>
+      <a
+        href="/"
+        class="brand-site"
+      >OpenSplat</a>
       <nav
         class="navlinks"
         :aria-label="$t('nav.main')"
@@ -38,10 +48,18 @@ const site = 'https://openpak.org';
         <a :href="`${site}/downloads`">{{ $t('nav.downloads') }}</a>
         <a :href="`${site}/status`">{{ $t('nav.status') }}</a>
         <a :href="`${site}/help`">{{ $t('nav.help') }}</a>
-        <a
-          href="/"
-          aria-current="page"
-        >SplatNet</a>
+        <NuxtLink
+          to="/"
+          :aria-current="route.path === '/' ? 'page' : undefined"
+        >
+          OpenSplat
+        </NuxtLink>
+        <NuxtLink
+          to="/splatfest"
+          :aria-current="route.path === '/splatfest' ? 'page' : undefined"
+        >
+          {{ $t('nav.splatfest') }}
+        </NuxtLink>
       </nav>
     </div>
   </header>
@@ -101,7 +119,7 @@ const site = 'https://openpak.org';
         <ul>
           <li><a :href="`${site}/terms`">{{ $t('footer.terms') }}</a></li>
           <li><a :href="`${site}/privacy`">{{ $t('footer.privacy') }}</a></li>
-          <li><a :href="`${site}/legal`">{{ $t('footer.legal.notices') }}</a></li>
+          <li><a :href="`${site}/legal`">{{ $t('footer.legal_notices') }}</a></li>
         </ul>
       </nav>
       <div class="foot-bottom">
