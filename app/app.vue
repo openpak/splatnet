@@ -96,6 +96,9 @@ const initial = computed(() => (session.value?.name || '?').trim().charAt(0).toU
         <p class="note">
           {{ $t('footer.note') }}
         </p>
+        <p class="note">
+          <a :href="`${site}/`">{{ $t('footer.network_line') }}</a>
+        </p>
       </div>
       <nav aria-labelledby="foot-net">
         <h2 id="foot-net">

@@ -493,7 +493,8 @@
 		"terms": "Terms of use",
 		"privacy": "Privacy policy",
 		"nintendo": "Splatoon is a trademark of Nintendo; stage art belongs to its owners.",
-		"legal_notices": "Trademarks and takedowns"
+		"legal_notices": "Trademarks and takedowns",
+		"network_line": "Part of the OpenPak network"
 	},
 	"page": {
 		"lede": "Stage rotations, open gatherings and who's playing in Splatoon on OpenPak.",

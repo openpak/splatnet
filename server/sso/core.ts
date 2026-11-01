@@ -12,7 +12,7 @@ export const SESSION_TTL = 7 * 24 * 3600; // seconds
 export const FLOW_TTL = 600;
 
 export type SsoConfig = {
-	publicURL: string; // https://opensplat.openpak.org
+	publicURL: string; // https://splat.openpak.org
 	openpakURL: string; // https://openpak.org
 	internalURL: string; // http://openpak-website:20010, server to server
 	secret: string; // SSO_CLIENT_OPENSPLAT_SECRET
