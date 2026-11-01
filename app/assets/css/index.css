@@ -113,9 +113,6 @@ main p { margin: 0 0 1rem; }
 .top { position: sticky; top: 0; z-index: 40; background: color-mix(in srgb, var(--paper) 94%, transparent); border-bottom: 1px solid var(--line); }
 .top .wrap { display: flex; align-items: center; gap: 12px; height: 64px; }
 .brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-ui); font-weight: 800; font-size: 1.15rem; color: var(--ink); text-decoration: none; border-radius: 999px; }
-.sep { color: var(--muted); font-family: var(--font-ui); font-weight: 700; }
-.brand-site { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-ui); font-weight: 800; font-size: 1.15rem; color: var(--ink); text-decoration: none; border-radius: 999px; }
-.brand-site:hover { text-decoration: underline; text-underline-offset: 3px; }
 .navlinks { display: none; gap: 2px; margin-left: 18px; }
 .navlinks a { display: inline-flex; align-items: center; padding: 7px 14px; border-radius: 999px; font-family: var(--font-ui); font-size: .93rem; font-weight: 700; color: var(--ink-2); text-decoration: none; }
 .navlinks a:hover { color: var(--ink); background: var(--raised); }

@@ -27,22 +27,8 @@ const route = useRoute();
   <header class="top">
     <div class="wrap">
       <a
-        :href="site"
-        class="brand"
-        aria-label="OpenPak"
-      ><img
-        src="/icon.svg"
-        alt=""
-        width="28"
-        height="28"
-      >OpenPak</a>
-      <span
-        class="sep"
-        aria-hidden="true"
-      >/</span>
-      <a
         href="/"
-        class="brand-site"
+        class="brand"
       ><img
         src="/opensplat.svg"
         alt=""
@@ -81,14 +67,14 @@ const route = useRoute();
     <div class="wrap">
       <div>
         <a
-          :href="site"
+          href="/"
           class="brand"
         ><img
-          src="/icon.svg"
+          src="/opensplat.svg"
           alt=""
           width="28"
           height="28"
-        >OpenPak</a>
+        >OpenSplat</a>
         <p class="note">
           {{ $t('footer.note') }}
         </p>

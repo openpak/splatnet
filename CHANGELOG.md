@@ -3,6 +3,10 @@
 Note: the early history below is the upstream project (Pretendo Splatoon-Website);
 OpenPak work starts at the port/fork commit.
 
+## v0.2.4 — 2026-11-01
+
+- Top bar and footer show only the OpenSplat mark and name (no OpenPak logo or "OpenPak /" prefix)
+
 ## v0.1.2 — 2026-11-01
 
 - No "not available yet" note for friends and tag themes; the empty-rotation hint drops the BOSS jargon
