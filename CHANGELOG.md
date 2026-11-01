@@ -11,6 +11,10 @@ OpenPak work starts at the port/fork commit.
 
 - The "no rotation yet" notices span the page width like the rest of openpak.org (were capped at 36rem)
 
+## v0.2.1 - 2026-11-01
+
+- Fix the v0.2.0 image build: Judd client uses plain fetch (the typed $fetch overflowed the type checker in CI). Content as v0.2.0.
+
 ## v0.2.0 - 2026-11-01
 
 - New page `/splatfest`: per-team Splatfest results from two sources, Judd's read API (`PN_SPLATOON_WEBSITE_JUDD_URL`, match results the game uploads) and the game server's competition ranking (`ranking_splatoon` tables in the title database). API: `/api/splatfest`.

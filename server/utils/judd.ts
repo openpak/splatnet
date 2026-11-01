@@ -8,7 +8,11 @@ async function juddGet<T>(path: string): Promise<T | null> {
 		return null;
 	}
 	try {
-		return (await $fetch(`${juddURL}${path}`, { timeout: 5000 })) as T;
+		const res = await fetch(`${juddURL}${path}`, { signal: AbortSignal.timeout(5000) });
+		if (!res.ok) {
+			return null;
+		}
+		return (await res.json()) as T;
 	} catch (e) {
 		logger.warn({ err: String(e) }, 'Judd read API failed');
 		return null;
