@@ -3,6 +3,12 @@
 Note: the early history below is the upstream project (Pretendo Splatoon-Website);
 OpenPak work starts at the port/fork commit.
 
+## v0.3.4 — 2026-11-01
+
+- Spanish and Japanese: the "(es_ES)" / "(ja_JP)" placeholder text is replaced by real translations (interface, Splatfest pages, Japanese weapon, sub, special and ability names); gear and Spanish weapon names that have no name we are sure of stay in English
+- Fixed the Friends tab label (the locale key was `Friends`, the page asks for `friends`)
+- `npm test` fails if a locale has a missing or extra key, or a "(xx_XX)" value
+
 ## v0.3.3 — 2026-11-01
 
 - The friends tab shows "Loading..." until the list arrives instead of "No Friends"
