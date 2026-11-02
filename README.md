@@ -34,9 +34,7 @@ Settings are in [`example.env`](example.env). The container listens on 8080.
 ## Docs
 
 - [Deploy](docs/deploy.md)
-- [Notes](docs/notes.md)
-- [Upstream README](docs/upstream.md)
-- [Docs index](docs/README.md)
+- [Provenance](docs/provenance.md)
 
 ## Licence
 

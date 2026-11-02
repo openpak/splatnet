@@ -1,3 +1,9 @@
+# Provenance
+
+Based on [Pretendo `Splatoon-Website`](https://github.com/PretendoNetwork/Splatoon-Website) (AGPL-3.0). License as upstream; see LICENSE. The upstream README follows verbatim.
+
+---
+
 # Upstream README: splatnet
 
 # Splatoon Website
@@ -42,3 +48,7 @@ Create a .env with the following values:
 	```
 
 3. That's it!
+
+## Differences from upstream
+
+Look: openpak.org's console system UI (tokens copied by hand from the website's `input.css`), the website's header and footer, self-hosted M PLUS Rounded 1c. Pretendo's logo, colours, fonts and Splatoon-styled chrome are gone; the stage images are kept as content. Sign-in is openpak.org single sign-on.
