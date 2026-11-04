@@ -4,6 +4,7 @@
 		"description": ""
 	},
 	"titles": {
+		"mode": "モード",
 		"regular": "レギュラーマッチ",
 		"ranked": "ガチマッチ",
 		"gatherings": "募集中",

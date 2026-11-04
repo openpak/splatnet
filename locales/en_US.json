@@ -4,6 +4,7 @@
 		"description": ""
 	},
 	"titles": {
+		"mode": "Mode",
 		"regular": "Regular Battle",
 		"ranked": "Ranked Battle",
 		"gatherings": "Gatherings",

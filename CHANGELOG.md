@@ -8,7 +8,7 @@ OpenPak work starts at the port/fork commit.
 - docs: README + protocol + deploy only; PRDs move to openpak/prds
 - docs: drop time-stamped status notes
 
-## v0.3.6 — 2026-11-04
+## v0.3.7 — 2026-11-04
 
 - Phones: the Regular Battle / Ranked Battle / Gatherings / Friends tabs and the Splatfest picker become one native dropdown below 40rem instead of wrapping onto two lines. Pills stay on desktop.
 

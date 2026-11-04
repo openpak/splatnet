@@ -75,6 +75,19 @@ const hasStages = computed(() => !!stages.value?.Phases?.length);
         {{ item.label }}
       </button>
     </div>
+    <select
+      v-model="tab"
+      class="pillselect"
+      :aria-label="$t('titles.mode')"
+    >
+      <option
+        v-for="item in tabs"
+        :key="item.id"
+        :value="item.id"
+      >
+        {{ item.label }}
+      </option>
+    </select>
 
     <section
       v-for="mode in (['regular', 'ranked'] as const)"

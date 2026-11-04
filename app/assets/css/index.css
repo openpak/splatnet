@@ -167,6 +167,20 @@ main p { margin: 0 0 1rem; }
 .tab:hover { color: var(--ink); background: var(--raised); }
 .tab.active { color: var(--ink); background: var(--raised); box-shadow: inset 0 -3px 0 var(--cursor), var(--shadow-sm); }
 
+/* Tab rows on a phone: the pills give way to one native select (the other OpenPak sites do the same
+   with pillselect.js; this app renders its own rows, so a breakpoint does it). */
+select.pillselect { display: none; width: 100%; min-height: 46px; margin: 0; padding: 0 2.4rem 0 1rem; font: inherit; font-family: var(--font-ui); font-weight: 700; font-size: max(1rem, 16px); color: var(--ink);
+  background-color: var(--paper-2); border: 1px solid var(--line-2, var(--line)); border-radius: 12px; cursor: pointer; text-overflow: ellipsis;
+  -webkit-appearance: none !important; appearance: none !important;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 20px) 55%, calc(100% - 15px) 55%; background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; }
+.pillselect:focus, .pillselect:focus-visible { outline: none; border-color: var(--cursor); box-shadow: 0 0 0 3px color-mix(in srgb, var(--cursor) 30%, transparent); }
+@media (max-width: 40rem) {
+  select.pillselect { display: block; margin: 24px 0 28px; }
+  select.pillselect.fest-select { margin: 24px 0 8px; }
+  .tabs, nav.fest-pick { display: none; }
+}
+
 /* Rotation. */
 .phase { margin-bottom: 36px; }
 .phase h2 { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }

@@ -60,6 +60,20 @@ const teamClass = ['alpha', 'bravo'] as const;
           {{ $t('fest.fest_n', { id: fest.festId }) }}
         </NuxtLink>
       </nav>
+      <select
+        class="pillselect fest-select"
+        :aria-label="$t('fest.pick')"
+        :value="data.selected"
+        @change="navigateTo({ path: '/splatfest', query: { id: ($event.target as HTMLSelectElement).value } })"
+      >
+        <option
+          v-for="fest in data.fests"
+          :key="fest.festId"
+          :value="fest.festId"
+        >
+          {{ $t('fest.fest_n', { id: fest.festId }) }}
+        </option>
+      </select>
 
       <section class="fest-source">
         <h2>{{ $t('fest.judd') }}</h2>

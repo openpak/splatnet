@@ -4,6 +4,7 @@
 		"description": ""
 	},
 	"titles": {
+		"mode": "Modo",
 		"regular": "Combate amistoso",
 		"ranked": "Combate competitivo",
 		"gatherings": "Reuniones",
