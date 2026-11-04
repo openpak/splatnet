@@ -3,6 +3,15 @@
 Note: the early history below is the upstream project (Pretendo Splatoon-Website);
 OpenPak work starts at the port/fork commit.
 
+## v0.3.6 — 2026-11-04
+
+- docs: README + protocol + deploy only; PRDs move to openpak/prds
+- docs: drop time-stamped status notes
+
+## v0.3.6 — 2026-11-04
+
+- Phones: the Regular Battle / Ranked Battle / Gatherings / Friends tabs and the Splatfest picker become one native dropdown below 40rem instead of wrapping onto two lines. Pills stay on desktop.
+
 ## v0.3.5 — 2026-11-01
 
 - Sign out ends only this site's session and returns to the home page; it no longer goes through openpak.org's "Sign out of OpenPak?" page, and openpak.org stays signed in. The next Sign in may sign straight back in while openpak.org is signed in
