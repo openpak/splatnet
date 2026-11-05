@@ -3,6 +3,10 @@
 Note: the early history below is the upstream project (Pretendo Splatoon-Website);
 OpenPak work starts at the port/fork commit.
 
+## v0.3.8 — 2026-11-05
+
+- Account erasure (openpak/prds#120): `DELETE /internal/accounts/{account_id}/data` with `Authorization: Bearer $ACCOUNT_ERASE_KEY` on a separate container-network-only listener (`PN_SPLATOON_WEBSITE_ERASE_PORT`, default 8081; never routed by Traefik). Resolves the account's Wii U PIDs (account core `wiiu` links plus nn-account's resolution service) and deletes their `User` documents. 503 key unset, 401 wrong key, 400 bad id, 502 PIDs unresolvable, 200 `{"service":"splatnet","rows":N}` (idempotent).
+
 ## v0.3.6 — 2026-11-04
 
 - docs: README + protocol + deploy only; PRDs move to openpak/prds
