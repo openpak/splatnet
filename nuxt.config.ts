@@ -63,7 +63,6 @@ export default defineNuxtConfig({
 			sessionKey: ''
 		},
 		juddURL: '',
-		mongoURI: '',
 		postgresURI: '',
 		maxResponse: 12,
 		fileCacheDir: './',

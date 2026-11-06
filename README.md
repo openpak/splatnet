@@ -6,7 +6,7 @@ OpenSplat is OpenPak's replacement for Nintendo's SplatNet, the Splatoon 1 compa
 | --- | --- |
 | Network | Wii U |
 | Role | Web site: stage rotations, active matches, player tags |
-| Depends on | [`nn-boss`](https://github.com/openpak/nn-boss), [`nn-account`](https://github.com/openpak/nn-account), [`nn-friends`](https://github.com/openpak/nn-friends), the Splatoon title database ([`nex`](https://github.com/openpak/nex)), MongoDB |
+| Depends on | [`nn-boss`](https://github.com/openpak/nn-boss), [`nn-account`](https://github.com/openpak/nn-account), [`nn-friends`](https://github.com/openpak/nn-friends), the Splatoon title database ([`nex`](https://github.com/openpak/nex)) |
 | Image | `ghcr.io/openpak/splatnet` |
 | Public host | `splat.openpak.org` |
 | Based on | [Pretendo `Splatoon-Website`](https://github.com/PretendoNetwork/Splatoon-Website) (AGPL-3.0) |

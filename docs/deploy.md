@@ -50,6 +50,6 @@ Tag themes (the upstream splash-tag editor) are not built: this site has no spla
 second listener on `PN_SPLATOON_WEBSITE_ERASE_PORT` (default 8081), reachable only on the container
 network; Traefik never routes it. The account's Wii U PIDs come from the account core (`SPLATNET_CORE_ADDR` +
 `SPLATNET_CORE_KEY`, namespace `wiiu`) and nn-account's resolution service (the `GRPC_ACCOUNT_*` settings);
-the matching `User` documents in Mongo are deleted (the Splatoon title database is read-only here).
+nothing is stored per player (v0.4.0 removed the unused Mongo user collection), so it answers 0 rows (the Splatoon title database is read-only here).
 503 when the key is unset, 401 wrong key, 400 bad id, 502 when the PIDs cannot be resolved, otherwise
 200 `{"service":"splatnet","rows":N}` (idempotent). Exactly one `account erased` log line per success.
